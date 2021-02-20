@@ -83,7 +83,7 @@ class Stop(
 
         stopEntities(player.world.entities.filter { it != player })
 
-        Observable.interval(60)
+        Observable.interval(20)
                 .take(seconds.toLong())
                 .doOnNext {
                     player.sendMessage("${seconds - it}秒前")

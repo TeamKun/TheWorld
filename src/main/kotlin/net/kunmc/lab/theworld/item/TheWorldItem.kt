@@ -18,8 +18,6 @@ class TheWorldItem : Item(), Craftable {
     )
     override val itemStack = ItemStack(Material.BLAZE_POWDER)
 
-    val seconds = 10
-
     override fun getRecipe(plugin: JavaPlugin): ShapedRecipe? {
         val key = getKey(plugin) ?: return null
         return ShapedRecipe(key, toItemStack(plugin)).apply {
@@ -31,6 +29,6 @@ class TheWorldItem : Item(), Craftable {
 
     fun execute(player: Player, itemStack: ItemStack, plugin: TheWorld) {
         itemStack.amount -= 1
-        Stop(plugin).execute(player, seconds)
+        Stop(plugin).execute(player, plugin.seconds)
     }
 }

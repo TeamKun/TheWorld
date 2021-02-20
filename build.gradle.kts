@@ -4,20 +4,24 @@ plugins {
     kotlin("kapt").version(Dependencies.Kotlin.version)
 }
 
-group = "com.reyadayer"
+group = "net.kunmc.lab"
 version = "1.0-SNAPSHOT"
 
 repositories {
     jcenter()
     mavenCentral()
     maven(Dependencies.Spigot.repository)
+    maven(Dependencies.Paper.repository)
+    maven(Dependencies.SonaType.repository)
+    maven(Dependencies.ProtocolLib.repository)
 }
 
 dependencies {
-    compile(Dependencies.Spigot.api)
+    compile(Dependencies.Paper.api)
     compileOnly(Dependencies.Spigot.annotations)
     kapt(Dependencies.Spigot.annotations)
     compile(Dependencies.Kotlin.stdlib)
+    compileOnly(Dependencies.ProtocolLib.core)
     testCompile(Dependencies.JUnit.core)
 }
 

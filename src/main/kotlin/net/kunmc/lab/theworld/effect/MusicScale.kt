@@ -1,0 +1,31 @@
+package net.kunmc.lab.theworld.effect
+
+enum class MusicScale(val pitch: Float) {
+    E_MINUS(0.42f),
+    F_MINUS(0.46f),
+    F_MINUS_S(0.49f),
+    G_MINUS(0.53f),
+    G_MINUS_S(0.56f),
+    A_MINUS(0.6f),
+    A_MINUS_S(0.63f),
+    B_MINUS(0.67f),
+    C(0.7f),
+    C_S(0.75f),
+    D(0.8f),
+    D_S(0.85f),
+    E(0.9f),
+    F(0.95f),
+    F_S(1.0f),
+    G(1.05f),
+    G_S(1.1f),
+    A(1.2f),
+    A_S(1.25f),
+    B(1.32f),
+    C_PLUS(1.4f),
+    C_PLUS_S(1.5f),
+    D_PLUS(1.6f),
+    D_PLUS_S(1.7f),
+    E_PLUS(1.8f),
+    F_PLUS(1.9f),
+    F_PLUS_S(2.0f)
+}

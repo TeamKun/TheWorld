@@ -15,6 +15,7 @@ import net.kunmc.lab.theworld.rx.Observable
 import org.bukkit.entity.Entity
 import org.bukkit.entity.LivingEntity
 import org.bukkit.entity.Player
+import org.bukkit.entity.TNTPrimed
 import org.bukkit.util.Vector
 
 class Stop(
@@ -42,6 +43,10 @@ class Stop(
             if (entity is LivingEntity) {
                 entity.setAI(false)
             }
+            if (entity is TNTPrimed){
+                entity.setMeta(plugin, MetadataKey.Ticks, entity.fuseTicks)
+                entity.fuseTicks = 10000
+            }
         }
     }
 
@@ -66,6 +71,10 @@ class Stop(
                 entity.setAI(true)
                 entity.damage(entity.getMeta(MetadataKey.Damage, 0.0))
                 entity.removeMeta(plugin, MetadataKey.Damage)
+            }
+            if (entity is TNTPrimed) {
+            val ticks = entity.getMeta(MetadataKey.Ticks, 0)
+                entity.fuseTicks = ticks
             }
         }
     }

@@ -12,6 +12,7 @@ import net.kunmc.lab.theworld.ext.setMeta
 import net.kunmc.lab.theworld.metadata.MetadataKey
 import net.kunmc.lab.theworld.range.RectRange
 import net.kunmc.lab.theworld.rx.Observable
+import org.bukkit.entity.Creeper
 import org.bukkit.entity.Entity
 import org.bukkit.entity.LivingEntity
 import org.bukkit.entity.Player
@@ -43,9 +44,13 @@ class Stop(
             if (entity is LivingEntity) {
                 entity.setAI(false)
             }
-            if (entity is TNTPrimed){
+            if (entity is Creeper) {
+                entity.setMeta(plugin, MetadataKey.Ticks, entity.maxFuseTicks)
+                entity.maxFuseTicks = 100000
+            }
+            if (entity is TNTPrimed) {
                 entity.setMeta(plugin, MetadataKey.Ticks, entity.fuseTicks)
-                entity.fuseTicks = 10000
+                entity.fuseTicks = 100000
             }
         }
     }
@@ -72,8 +77,12 @@ class Stop(
                 entity.damage(entity.getMeta(MetadataKey.Damage, 0.0))
                 entity.removeMeta(plugin, MetadataKey.Damage)
             }
+            if (entity is Creeper) {
+                val ticks = entity.getMeta(MetadataKey.Ticks, 0)
+                entity.maxFuseTicks = ticks
+            }
             if (entity is TNTPrimed) {
-            val ticks = entity.getMeta(MetadataKey.Ticks, 0)
+                val ticks = entity.getMeta(MetadataKey.Ticks, 0)
                 entity.fuseTicks = ticks
             }
         }

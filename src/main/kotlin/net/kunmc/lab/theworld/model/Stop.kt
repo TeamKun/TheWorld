@@ -91,24 +91,29 @@ class Stop(
     fun execute(player: Player, seconds: Int) {
         if (plugin.isStopped) {
             startEntity(player)
-            player.sendMessage("止まった時間の中で動けるようになった")
+            player.sendActionBar("止まった時間の中で動けるようになった")
             return
         }
-        val range = RectRange(50.0, 50.0, 50.0)
-        val players = range.getEntities(player.location).filterIsInstance<Player>()
+        val entities = player.world.entities
+        val players = entities.filterIsInstance<Player>()
         TimeStopEffect(plugin).execute(players)
+        players.forEach {
+            plugin.bossBar.addPlayer(it)
+        }
+
         plugin.isStopped = true
 
-        stopEntities(player.world.entities.filter { it != player })
+        stopEntities(entities.filter { it != player })
 
         Observable.interval(20)
                 .take(seconds.toLong())
                 .doOnNext {
-                    player.sendMessage("${seconds - it}秒前")
+                    plugin.bossBar.progress = (seconds - it).toDouble() / seconds.toDouble()
                 }
                 .doOnComplete {
                     TimeStartEffect(plugin).execute(players)
                     plugin.isStopped = false
+                    plugin.bossBar.removeAll()
                     startEntities(player.world.entities.filter { it.getMeta(MetadataKey.IsStopped, false) }.filter { !it.getMeta(MetadataKey.IsCamera, false) })
                 }
                 .subscribe(plugin)

@@ -7,6 +7,10 @@ import net.kunmc.lab.theworld.ext.registerListener
 import net.kunmc.lab.theworld.listener.BlockListener
 import net.kunmc.lab.theworld.listener.EntityListener
 import net.kunmc.lab.theworld.listener.PlayerListener
+import org.bukkit.NamespacedKey
+import org.bukkit.boss.BarColor
+import org.bukkit.boss.BarStyle
+import org.bukkit.boss.BossBar
 import org.bukkit.plugin.java.JavaPlugin
 import org.bukkit.plugin.java.annotation.command.Command
 import org.bukkit.plugin.java.annotation.command.Commands
@@ -37,6 +41,7 @@ import team.kun.wraith.item.RecipeService
 class TheWorld : JavaPlugin() {
     var isStopped = false
     var seconds = 5
+    lateinit var bossBar: BossBar
 
     override fun onEnable() {
         this.initCommand(PluginCommands.DEBUG, DebugCommand(this))
@@ -45,6 +50,8 @@ class TheWorld : JavaPlugin() {
         this.registerListener(BlockListener(this))
         this.registerListener(EntityListener(this))
         this.registerListener(PlayerListener(this))
+
+        bossBar = this.server.createBossBar(NamespacedKey(this, "TheWorld"), "ザ・ワールド", BarColor.YELLOW, BarStyle.SOLID)
 
         RecipeService.add(this)
     }

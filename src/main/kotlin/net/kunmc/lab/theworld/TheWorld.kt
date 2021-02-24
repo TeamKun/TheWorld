@@ -1,6 +1,7 @@
 package net.kunmc.lab.theworld
 
 import net.kunmc.lab.theworld.command.DebugCommand
+import net.kunmc.lab.theworld.command.GiveCommand
 import net.kunmc.lab.theworld.command.SettingCommand
 import net.kunmc.lab.theworld.ext.initCommand
 import net.kunmc.lab.theworld.ext.registerListener
@@ -36,6 +37,13 @@ import team.kun.wraith.item.RecipeService
                 usage = "/<command>",
                 permission = PluginPermissions.ADMIN,
                 permissionMessage = "You don't have <permission>"
+        ),
+        Command(
+                name = PluginCommands.GIVE,
+                desc = "give command",
+                usage = "/<command>",
+                permission = PluginPermissions.ADMIN,
+                permissionMessage = "You don't have <permission>"
         )
 )
 class TheWorld : JavaPlugin() {
@@ -46,6 +54,7 @@ class TheWorld : JavaPlugin() {
     override fun onEnable() {
         this.initCommand(PluginCommands.DEBUG, DebugCommand(this))
         this.initCommand(PluginCommands.SETTING, SettingCommand(this))
+        this.initCommand(PluginCommands.GIVE, GiveCommand(this))
 
         this.registerListener(BlockListener(this))
         this.registerListener(EntityListener(this))
